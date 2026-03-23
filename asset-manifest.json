@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/StoreFront/static/css/main.1b77885b.css",
+    "main.js": "/StoreFront/static/js/main.6a517d15.js",
+    "static/media/alyssa-strohmann-2r2RUsEU1Aw-unsplash.jpg": "/StoreFront/static/media/alyssa-strohmann-2r2RUsEU1Aw-unsplash.19e89ba13fb79eac46fa.jpg",
+    "static/media/content-pixie-VIh-B-bNZMc-unsplash.jpg": "/StoreFront/static/media/content-pixie-VIh-B-bNZMc-unsplash.95b01afc24e4ab5d8c9e.jpg",
+    "static/media/luca-bravo-9l_326FISzk-unsplash.jpg": "/StoreFront/static/media/luca-bravo-9l_326FISzk-unsplash.2c58754f0e9d8710db19.jpg",
+    "static/media/alisha-hieb--WW6b0Mwplc-unsplash.jpg": "/StoreFront/static/media/alisha-hieb--WW6b0Mwplc-unsplash.9baf37b346ee2f819b7a.jpg",
+    "static/media/christopher-campbell-kFCdfLbu6zA-unsplash.jpg": "/StoreFront/static/media/christopher-campbell-kFCdfLbu6zA-unsplash.b8d99a255bc3308bc711.jpg",
+    "static/media/marissa-grootes-D4jRahaUaIc-unsplash.jpg": "/StoreFront/static/media/marissa-grootes-D4jRahaUaIc-unsplash.c76422ff3ab62c54eaa1.jpg",
+    "static/media/alexey-lin-j-0pjgxE1kc-unsplash.jpg": "/StoreFront/static/media/alexey-lin-j-0pjgxE1kc-unsplash.af955b674695222317bb.jpg",
+    "static/media/alex-lvrs-4N5huJDOydQ-unsplash.jpg": "/StoreFront/static/media/alex-lvrs-4N5huJDOydQ-unsplash.ad490ab7359887c198f5.jpg",
+    "static/media/undraw_page_not_found_re_e9o6.svg": "/StoreFront/static/media/undraw_page_not_found_re_e9o6.b9ba6e64cd0042b54d7095b3879dab0b.svg",
+    "index.html": "/StoreFront/index.html",
+    "main.1b77885b.css.map": "/StoreFront/static/css/main.1b77885b.css.map",
+    "main.6a517d15.js.map": "/StoreFront/static/js/main.6a517d15.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1b77885b.css",
+    "static/js/main.6a517d15.js"
+  ]
+}
