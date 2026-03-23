@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/StoreFront/static/css/main.1b77885b.css",
-    "main.js": "/StoreFront/static/js/main.6a517d15.js",
+    "main.js": "/StoreFront/static/js/main.fcfe948e.js",
     "static/media/alyssa-strohmann-2r2RUsEU1Aw-unsplash.jpg": "/StoreFront/static/media/alyssa-strohmann-2r2RUsEU1Aw-unsplash.19e89ba13fb79eac46fa.jpg",
     "static/media/content-pixie-VIh-B-bNZMc-unsplash.jpg": "/StoreFront/static/media/content-pixie-VIh-B-bNZMc-unsplash.95b01afc24e4ab5d8c9e.jpg",
     "static/media/luca-bravo-9l_326FISzk-unsplash.jpg": "/StoreFront/static/media/luca-bravo-9l_326FISzk-unsplash.2c58754f0e9d8710db19.jpg",
@@ -13,10 +13,10 @@
     "static/media/undraw_page_not_found_re_e9o6.svg": "/StoreFront/static/media/undraw_page_not_found_re_e9o6.b9ba6e64cd0042b54d7095b3879dab0b.svg",
     "index.html": "/StoreFront/index.html",
     "main.1b77885b.css.map": "/StoreFront/static/css/main.1b77885b.css.map",
-    "main.6a517d15.js.map": "/StoreFront/static/js/main.6a517d15.js.map"
+    "main.fcfe948e.js.map": "/StoreFront/static/js/main.fcfe948e.js.map"
   },
   "entrypoints": [
     "static/css/main.1b77885b.css",
-    "static/js/main.6a517d15.js"
+    "static/js/main.fcfe948e.js"
   ]
 }
