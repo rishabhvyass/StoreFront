@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   FiArrowLeft,
   FiCreditCard,
@@ -317,20 +317,20 @@ const Cart = () => {
             <div className="cart-footer-links">
               <div>
                 <h4>Help</h4>
-                <a href="/shop">FAQ</a>
-                <a href="/shop">Customer Service</a>
-                <a href="/shop">How-to guides</a>
+                <Link to="/shop">FAQ</Link>
+                <Link to="/shop">Customer Service</Link>
+                <Link to="/shop">How-to guides</Link>
               </div>
               <div>
                 <h4>Support</h4>
-                <a href="/contact">Privacy Policy</a>
-                <a href="/contact">Sitemap</a>
-                <a href="/contact">Subscriptions</a>
+                <Link to="/contact">Privacy Policy</Link>
+                <Link to="/contact">Sitemap</Link>
+                <Link to="/contact">Subscriptions</Link>
               </div>
               <div>
                 <h4>Contact us</h4>
-                <a href="/contact">support@shopfront</a>
-                <a href="/contact">+1 (800) 555-0123</a>
+                <a href="mailto:support@shopfront.com">support@shopfront.com</a>
+                <a href="tel:+18005550123">+1 (800) 555-0123</a>
               </div>
             </div>
           </footer>
@@ -564,20 +564,20 @@ const Cart = () => {
           <div className="cart-footer-links">
             <div>
               <h4>Help</h4>
-              <a href="/shop">FAQ</a>
-              <a href="/shop">Customer Service</a>
-              <a href="/shop">How-to guides</a>
+              <Link to="/shop">FAQ</Link>
+              <Link to="/shop">Customer Service</Link>
+              <Link to="/shop">How-to guides</Link>
             </div>
             <div>
               <h4>Support</h4>
-              <a href="/contact">Privacy Policy</a>
-              <a href="/contact">Sitemap</a>
-              <a href="/contact">Subscriptions</a>
+              <Link to="/contact">Privacy Policy</Link>
+              <Link to="/contact">Sitemap</Link>
+              <Link to="/contact">Subscriptions</Link>
             </div>
             <div>
               <h4>Contact us</h4>
-              <a href="/contact">support@shopfront</a>
-              <a href="/contact">+1 (800) 555-0123</a>
+              <a href="mailto:support@shopfront.com">support@shopfront.com</a>
+              <a href="tel:+18005550123">+1 (800) 555-0123</a>
             </div>
           </div>
         </footer>

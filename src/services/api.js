@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { getApiBaseUrl, withAppBase } from '../utils/appRuntime';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+const API_BASE_URL = getApiBaseUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -34,10 +35,27 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+    const requestUrl = error.config?.url || '';
+    const isAuthRequest = ['/auth/login', '/auth/register', '/auth/google'].some((path) =>
+      requestUrl.includes(path)
+    );
+    const hasToken = Boolean(localStorage.getItem('token'));
+    const shouldRedirect =
+      hasToken &&
+      !isAuthRequest &&
+      (error.response?.status === 401 || error.response?.status === 403);
+
+    if (shouldRedirect) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+
+      if (typeof window !== 'undefined') {
+        const loginPath = withAppBase('/login');
+        const currentPath = window.location.pathname;
+        if (currentPath !== loginPath) {
+          window.location.assign(loginPath);
+        }
+      }
     }
     return Promise.reject(error);
   }
