@@ -24,3 +24,11 @@ yarn-error.log*
 .env
 # Local Netlify folder
 .netlify
+
+# local app/runtime files
+server/.env
+server/.venv/
+server/__pycache__/
+*.sqlite3
+.vscode/
+Icon?

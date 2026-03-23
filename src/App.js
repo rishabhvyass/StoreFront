@@ -1,49 +1,134 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import CreateNotes from "./components/CreateNotes";
-import Note from "./components/Note";
+import "./styles/Common.css";
+import "./styles/Theme.css";
+import "./components/product-card/Style.css";
+import { Route, Routes } from "react-router-dom";
+import { AppProvider } from "./context/AppContext";
+import Services from "./webComponents/Servies";
+import Home from "./webComponents/Home";
+import Contact from "./webComponents/Contact";
+import Navigation from "./Navigation";
+import Err404 from "./webComponents/Err404";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Auth Pages
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+// E-commerce Pages
+import Shop from "./pages/Shop";
+import Cart from "./pages/Cart";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import CustomerPortal from "./pages/CustomerPortal";
+
+// Backend Management Pages
+import BackendDashboard from "./pages/BackendDashboard";
+import ProductManagement from "./pages/ProductManagement";
+import OrderManagement from "./pages/OrderManagement";
+import Reports from "./pages/Reports";
+import Settings from "./pages/Settings";
 
 const App = () => {
-  const [addItem, setAddItem] = useState([]);
-  const addNote = (note) => {
-    // alert(" clicked ");
-    setAddItem((prevData) => {
-      return [...prevData, note];
-    });
-    // console.log(note);
-  };
-
-  const onDelete = (id) => {
-    setAddItem((oldDate) =>
-      oldDate.filter((cuurData, indx) => {
-        return indx !== id;
-      })
-    );
-  };
   return (
-    <>
-      <Header />
+    <AppProvider>
+      <Navigation />
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/shop"
+          element={
+            <ProtectedRoute>
+              <Shop />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      <CreateNotes passNote={(notes) => addNote(notes)} />
-      <div className="Main_note">
-        {addItem?.length !== 0 &&
-          addItem?.map((val, index) => {
-            return (
-              <Note
-                Key={index}
-                id={index}
-                title={val.title}
-                content={val.content}
-                deleteitem={onDelete}
-              />
-            );
-          })}
-      </div>
+        {/* Protected Customer Routes */}
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/customer-portal"
+          element={
+            <ProtectedRoute>
+              <CustomerPortal />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/success/:orderId"
+          element={
+            <ProtectedRoute>
+              <CheckoutSuccess />
+            </ProtectedRoute>
+          }
+        />
 
-      {/* <Footer /> */}
-    </>
+        {/* Protected Backend Routes */}
+        <Route
+          path="/backend"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <BackendDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/backend/products"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <ProductManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/backend/orders"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <OrderManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/backend/invoices"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <OrderManagement initialTab="invoices" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/backend/reports"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <Reports />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/backend/settings"
+          element={
+            <ProtectedRoute requireInternal={true}>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 404 */}
+        <Route path="*" element={<Err404 />} />
+      </Routes>
+    </AppProvider>
   );
 };
 

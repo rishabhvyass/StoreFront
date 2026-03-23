@@ -1,0 +1,600 @@
+/* Common styles used across the application */
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+  color: #666;
+}
+
+.brand-loader {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 14px 32px;
+  background: #ececec;
+}
+
+.brand-loader-compact {
+  min-height: 240px;
+  padding: 16px 0;
+  background: transparent;
+}
+
+.brand-loader-card {
+  width: min(100%, 420px);
+  border: 1px solid #e8e8e8;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+  padding: 34px 28px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-family: "Space Mono", monospace;
+}
+
+.brand-loader-compact .brand-loader-card {
+  width: min(100%, 320px);
+  border-radius: 20px;
+  padding: 28px 22px 24px;
+}
+
+.brand-loader-spinner {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+
+.brand-loader-ring,
+.brand-loader-core {
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+}
+
+.brand-loader-ring {
+  border: 3px solid transparent;
+}
+
+.brand-loader-ring-one {
+  border-top-color: #8d24f1;
+  border-right-color: #8d24f1;
+  animation: brandLoaderSpin 1s linear infinite;
+}
+
+.brand-loader-ring-two {
+  inset: 9px;
+  border-bottom-color: rgba(178, 60, 255, 0.55);
+  border-left-color: rgba(178, 60, 255, 0.55);
+  animation: brandLoaderSpinReverse 0.9s linear infinite;
+}
+
+.brand-loader-core {
+  inset: 24px;
+  background: linear-gradient(180deg, #b23cff 0%, #8d24f1 100%);
+  box-shadow: 0 0 0 6px rgba(141, 36, 241, 0.08);
+}
+
+.brand-loader-card p {
+  margin: 0;
+  color: #171717;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+@keyframes brandLoaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes brandLoaderSpinReverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #667eea;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #5568d3;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.alert {
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-badge {
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.draft,
+.status-badge.pending,
+.status-badge.pending_payment {
+  background: #ffc107;
+  color: #000;
+}
+
+.status-badge.paid {
+  background: #28a745;
+  color: white;
+}
+
+.status-badge.unpaid,
+.status-badge.cancelled {
+  background: #dc3545;
+  color: white;
+}
+
+.status-badge.partial {
+  background: #17a2b8;
+  color: white;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.tab {
+  padding: 12px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #667eea;
+}
+
+.tab.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+  font-weight: 600;
+}
+
+@keyframes siteFrameRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes siteCardRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.988);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+:where(
+  .landing-frame,
+  .contact-frame,
+  .shop-detail-frame,
+  .cart-frame,
+  .auth-frame,
+  .success-frame,
+  .backend-frame,
+  .customer-portal-container,
+  .error-frame,
+  .brand-loader-card
+) {
+  animation: siteFrameRise 0.58s ease both;
+}
+
+:where(
+  .landing-category-card,
+  .landing-offer-card,
+  .landing-product-card,
+  .landing-feature-card,
+  .landing-company-copy,
+  .landing-company-card,
+  .landing-footer,
+  .landing-blog-card,
+  .contact-info-card,
+  .contact-form-panel,
+  .shop-featured-card,
+  .shop-recommended-card,
+  .shop-rating-card,
+  .shop-review-card,
+  .cart-summary-panel,
+  .cart-summary-card,
+  .cart-empty-panel,
+  .cart-line-item,
+  .auth-showcase,
+  .auth-form-panel,
+  .auth-support-card,
+  .success-hero-card,
+  .success-summary-card,
+  .success-info-card,
+  .success-loading-panel,
+  .success-missing-panel,
+  .portal-header-card,
+  .portal-profile-form-card,
+  .portal-section-card,
+  .order-card,
+  .invoice-card,
+  .management-header-card,
+  .overview-card,
+  .table-card,
+  .report-filter-card,
+  .settings-card,
+  .dashboard-intro-card,
+  .dashboard-hero-card,
+  .stat-card,
+  .quick-links,
+  .link-card
+) {
+  animation: siteCardRise 0.62s ease both;
+}
+
+:where(
+  .landing-category-grid > *,
+  .landing-trending-grid > *,
+  .landing-feature-grid > *,
+  .landing-blog-grid > *,
+  .landing-offers > *,
+  .stats-grid > *,
+  .links-grid > *,
+  .management-overview-grid > *
+):nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+:where(
+  .landing-category-grid > *,
+  .landing-trending-grid > *,
+  .landing-feature-grid > *,
+  .landing-blog-grid > *,
+  .landing-offers > *,
+  .stats-grid > *,
+  .links-grid > *,
+  .management-overview-grid > *
+):nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+:where(
+  .landing-category-grid > *,
+  .landing-trending-grid > *,
+  .landing-feature-grid > *,
+  .landing-blog-grid > *,
+  .landing-offers > *,
+  .stats-grid > *,
+  .links-grid > *,
+  .management-overview-grid > *
+):nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+:where(
+  .landing-category-grid > *,
+  .landing-trending-grid > *,
+  .landing-feature-grid > *,
+  .landing-blog-grid > *,
+  .landing-offers > *,
+  .stats-grid > *,
+  .links-grid > *,
+  .management-overview-grid > *
+):nth-child(4) {
+  animation-delay: 0.22s;
+}
+
+:where(
+  .nav-icon-btn,
+  .nav-link-item,
+  .nav-utility-link,
+  .theme-toggle-btn,
+  .landing-search-button,
+  .landing-offer-card button,
+  .landing-feature-overlay button,
+  .landing-panel-controls button,
+  .contact-send-button,
+  .contact-newsletter-form button,
+  .shop-category-pill,
+  .shop-add-button,
+  .shop-favorite-button,
+  .shop-more-button,
+  .shop-panel-controls button,
+  .shop-newsletter-bar button,
+  .cart-continue-link,
+  .cart-remove-button,
+  .cart-promo-row button,
+  .cart-checkout-button,
+  .cart-primary-button,
+  .cart-newsletter-form button,
+  .auth-submit-button,
+  .success-primary-link,
+  .success-secondary-link,
+  .success-newsletter-form button,
+  .portal-primary-button,
+  .portal-secondary-button,
+  .portal-logout-button,
+  .dashboard-primary-link,
+  .dashboard-secondary-link,
+  .stat-link,
+  .link-card,
+  .link-card-action,
+  .management-tabs .tab,
+  .btn,
+  .error-home-button
+) {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease,
+    border-color 0.22s ease,
+    color 0.22s ease,
+    opacity 0.22s ease;
+  will-change: transform;
+}
+
+:where(
+  .nav-icon-btn,
+  .nav-link-item,
+  .nav-utility-link,
+  .theme-toggle-btn,
+  .landing-search-button,
+  .landing-offer-card button,
+  .landing-feature-overlay button,
+  .landing-panel-controls button,
+  .contact-send-button,
+  .contact-newsletter-form button,
+  .shop-category-pill,
+  .shop-add-button,
+  .shop-favorite-button,
+  .shop-more-button,
+  .shop-panel-controls button,
+  .shop-newsletter-bar button,
+  .cart-continue-link,
+  .cart-remove-button,
+  .cart-promo-row button,
+  .cart-checkout-button,
+  .cart-primary-button,
+  .cart-newsletter-form button,
+  .auth-submit-button,
+  .success-primary-link,
+  .success-secondary-link,
+  .success-newsletter-form button,
+  .portal-primary-button,
+  .portal-secondary-button,
+  .portal-logout-button,
+  .dashboard-primary-link,
+  .dashboard-secondary-link,
+  .stat-link,
+  .management-tabs .tab,
+  .btn,
+  .error-home-button
+):hover {
+  transform: translateY(-2px);
+}
+
+:where(
+  .nav-icon-btn,
+  .theme-toggle-btn,
+  .landing-search-button,
+  .landing-offer-card button,
+  .landing-feature-overlay button,
+  .landing-panel-controls button,
+  .contact-send-button,
+  .contact-newsletter-form button,
+  .shop-category-pill,
+  .shop-add-button,
+  .shop-favorite-button,
+  .shop-more-button,
+  .shop-panel-controls button,
+  .shop-newsletter-bar button,
+  .cart-continue-link,
+  .cart-remove-button,
+  .cart-promo-row button,
+  .cart-checkout-button,
+  .cart-primary-button,
+  .cart-newsletter-form button,
+  .auth-submit-button,
+  .success-primary-link,
+  .success-secondary-link,
+  .success-newsletter-form button,
+  .portal-primary-button,
+  .portal-secondary-button,
+  .portal-logout-button,
+  .dashboard-primary-link,
+  .dashboard-secondary-link,
+  .management-tabs .tab,
+  .btn,
+  .error-home-button
+):active {
+  transform: translateY(0) scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(
+    .landing-frame,
+    .contact-frame,
+    .shop-detail-frame,
+    .cart-frame,
+    .auth-frame,
+    .success-frame,
+    .backend-frame,
+    .customer-portal-container,
+    .error-frame,
+    .brand-loader-card,
+    .landing-category-card,
+    .landing-offer-card,
+    .landing-product-card,
+    .landing-feature-card,
+    .landing-company-copy,
+    .landing-company-card,
+    .landing-footer,
+    .landing-blog-card,
+    .contact-info-card,
+    .contact-form-panel,
+    .shop-featured-card,
+    .shop-recommended-card,
+    .shop-rating-card,
+    .shop-review-card,
+    .cart-summary-panel,
+    .cart-summary-card,
+    .cart-empty-panel,
+    .cart-line-item,
+    .auth-showcase,
+    .auth-form-panel,
+    .auth-support-card,
+    .success-hero-card,
+    .success-summary-card,
+    .success-info-card,
+    .success-loading-panel,
+    .success-missing-panel,
+    .portal-header-card,
+    .portal-profile-form-card,
+    .portal-section-card,
+    .order-card,
+    .invoice-card,
+    .management-header-card,
+    .overview-card,
+    .table-card,
+    .report-filter-card,
+    .settings-card,
+    .dashboard-intro-card,
+    .dashboard-hero-card,
+    .stat-card,
+    .quick-links,
+    .link-card
+  ) {
+    animation: none !important;
+  }
+
+  :where(
+    .nav-icon-btn,
+    .nav-link-item,
+    .nav-utility-link,
+    .theme-toggle-btn,
+    .landing-search-button,
+    .landing-offer-card button,
+    .landing-feature-overlay button,
+    .landing-panel-controls button,
+    .contact-send-button,
+    .contact-newsletter-form button,
+    .shop-category-pill,
+    .shop-add-button,
+    .shop-favorite-button,
+    .shop-more-button,
+    .shop-panel-controls button,
+    .shop-newsletter-bar button,
+    .cart-continue-link,
+    .cart-remove-button,
+    .cart-promo-row button,
+    .cart-checkout-button,
+    .cart-primary-button,
+    .cart-newsletter-form button,
+    .auth-submit-button,
+    .success-primary-link,
+    .success-secondary-link,
+    .success-newsletter-form button,
+    .portal-primary-button,
+    .portal-secondary-button,
+    .portal-logout-button,
+    .dashboard-primary-link,
+    .dashboard-secondary-link,
+    .stat-link,
+    .link-card,
+    .link-card-action,
+    .management-tabs .tab,
+    .btn,
+    .error-home-button
+  ) {
+    transition: none !important;
+  }
+}

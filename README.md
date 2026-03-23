@@ -1,70 +1,200 @@
-# Getting Started with Create React App
+# ApparelDesk - E-commerce System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A complete web-based clothing e-commerce system with backend management and customer portal.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Customer Portal (Frontend)
+- Browse products with filters (category, type, search)
+- Add items to shopping cart
+- Apply coupon codes during checkout
+- View orders and invoices
+- Download invoices
 
-### `npm start`
+### Backend Management
+- **Products Management**: Create, edit, manage stock, publish/unpublish products
+- **Contacts Management**: Manage customers and vendors
+- **Sale Orders**: Create and manage customer orders
+- **Purchase Orders**: Create and manage vendor purchase orders
+- **Customer Invoices**: Generate invoices from sale orders
+- **Vendor Bills**: Generate bills from purchase orders
+- **Payments**: Record payments against invoices and bills
+- **Payment Terms**: Configure payment terms with early payment discounts
+- **Discount Offers**: Create discount programs and coupon codes
+- **Reports**: Generate sales and purchase reports by products, customers, and vendors
+- **Settings**: Configure automatic invoicing
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+- React 18
+- React Router DOM
+- Axios for API calls
+- Bootstrap 5
+- Material-UI
+- Context API for state management
 
-### `npm test`
+### Backend
+- Node.js
+- Express.js
+- JWT for authentication
+- bcryptjs for password hashing
+- In-memory database (replace with actual database in production)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Instructions
 
-### `npm run build`
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend Setup
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Navigate to the server directory:
+```bash
+cd server
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies:
+```bash
+npm install
+```
 
-### `npm run eject`
+3. Start the backend server:
+```bash
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The backend server will run on `http://localhost:5000`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For development with auto-reload:
+```bash
+npm run dev
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend Setup
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Navigate to the project root:
+```bash
+cd ..
+```
 
-## Learn More
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Create a `.env` file in the root directory:
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Start the development server:
+```bash
+npm start
+```
 
-### Code Splitting
+The frontend will run on `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Default Data
 
-### Analyzing the Bundle Size
+The backend initializes with:
+- Default payment term: "Immediate Payment" (no early payment discount)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## User Roles
 
-### Making a Progressive Web App
+### Portal Users (Customers)
+- Can register and login
+- Browse published products
+- Add items to cart
+- Apply coupon codes
+- View their own orders and invoices
+- Download invoices
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Internal Users (Backend)
+- Can manage all backend features
+- Access to all reports and settings
+- Full CRUD operations on all modules
 
-### Advanced Configuration
+**Note**: To create an internal user, you'll need to use the backend API directly or add a registration endpoint for internal users.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## API Endpoints
 
-### Deployment
+### Authentication
+- `POST /api/auth/register` - Register new portal user
+- `POST /api/auth/login` - Login user
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Products
+- `GET /api/products` - Get all products (published only for portal users)
+- `POST /api/products` - Create product (internal only)
+- `PUT /api/products/:id` - Update product (internal only)
 
-### `npm run build` fails to minify
+### Orders
+- `GET /api/sale-orders` - Get sale orders
+- `POST /api/sale-orders` - Create sale order
+- `GET /api/customer-invoices` - Get customer invoices
+- `POST /api/customer-invoices` - Create invoice from sale order
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Reports
+- `GET /api/reports/sales-by-products?start_date=&end_date=`
+- `GET /api/reports/purchase-by-products?start_date=&end_date=`
+- `GET /api/reports/sales-by-customers?start_date=&end_date=`
+- `GET /api/reports/purchase-by-vendors?start_date=&end_date=`
+
+See `server/server.js` for complete API documentation.
+
+## Key Features Implementation
+
+### Automatic Stock Management
+- Product stock is automatically updated when:
+  - Purchase orders are converted to vendor bills (stock increases)
+  - Sale orders are created (stock decreases)
+
+### Automatic Invoicing
+- When enabled in settings, customer invoices are automatically created after successful website checkout
+- When disabled, invoices must be manually created from sale orders
+
+### Payment Terms
+- Support for early payment discounts
+- Configurable discount percentage and days
+- Example preview for PDF generation
+
+### Coupon Codes
+- Contact-based restrictions
+- Expiration date validation
+- Linked to discount offers
+- Status tracking (used/unused)
+
+## Production Considerations
+
+1. **Database**: Replace in-memory storage with a proper database (PostgreSQL, MongoDB, etc.)
+2. **Authentication**: Use secure JWT secret in production
+3. **Password Hashing**: Already using bcryptjs
+4. **File Upload**: Implement proper image upload for products
+5. **PDF Generation**: Implement proper PDF generation for invoices
+6. **Payment Gateway**: Integrate actual payment gateway
+7. **Email**: Send order confirmations and invoices via email
+8. **Error Handling**: Add comprehensive error handling and logging
+9. **Validation**: Add input validation on both frontend and backend
+10. **Security**: Add rate limiting, CORS configuration, and security headers
+
+## Project Structure
+
+```
+ApperalDesk/
+├── server/                 # Backend API
+│   ├── server.js          # Express server and routes
+│   └── package.json       # Backend dependencies
+├── src/
+│   ├── components/        # Reusable components
+│   ├── context/           # React Context for state
+│   ├── pages/             # Page components
+│   ├── services/          # API service functions
+│   ├── styles/            # CSS files
+│   ├── App.js             # Main app component
+│   └── index.js           # React entry point
+└── package.json           # Frontend dependencies
+```
+
+## License
+
+This project is for educational/demonstration purposes.

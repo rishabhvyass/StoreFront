@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+.error-shell {
+  min-height: calc(100vh - 110px);
+  padding: 0 14px 24px;
+  background: var(--theme-bg);
+}
+
+.error-frame {
+  max-width: 1180px;
+  min-height: calc(100vh - 140px);
+  margin: 0 auto 20px;
+  padding: 48px 40px 54px;
+  border: 1px solid var(--theme-border);
+  border-top: none;
+  border-radius: 0 0 28px 28px;
+  background: var(--theme-surface);
+  box-shadow: var(--theme-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Space Mono", monospace;
+}
+
+.error-image {
+  width: min(100%, 480px);
+  height: auto;
+  margin-bottom: 18px;
+}
+
+.error-kicker {
+  margin: 0 0 10px;
+  color: var(--theme-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.error-frame h1 {
+  margin: 0 0 12px;
+  color: var(--theme-text);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.error-copy {
+  max-width: 520px;
+  margin: 0;
+  color: var(--theme-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.error-actions {
+  width: 100%;
+  margin-top: 28px;
+  display: flex;
+  justify-content: center;
+}
+
+.error-home-button {
+  min-width: 180px;
+  min-height: 46px;
+  padding: 0 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--theme-accent);
+  background: linear-gradient(180deg, var(--theme-accent-strong) 0%, var(--theme-accent) 100%);
+  color: #fbf7ff;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.error-home-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(141, 36, 241, 0.18);
+}
+
+@media (max-width: 768px) {
+  .error-shell {
+    padding: 0;
+  }
+
+  .error-frame {
+    min-height: calc(100vh - 84px);
+    padding: 36px 16px 30px;
+    border-radius: 0 0 22px 22px;
+  }
+
+  .error-home-button {
+    width: 100%;
+    max-width: 320px;
+  }
+}
