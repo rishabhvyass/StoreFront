@@ -45,9 +45,7 @@ export const getRuntimeApiBaseUrl = () => {
 export const getApiBaseUrl = () => {
   const runtimeUrl = getRuntimeApiBaseUrl();
   const envUrl = process.env.REACT_APP_API_URL || '';
-  const preferredUrl = process.env.NODE_ENV === 'production'
-    ? runtimeUrl || envUrl
-    : envUrl || runtimeUrl;
+  const preferredUrl = envUrl || runtimeUrl;
 
   if (preferredUrl) {
     return trimTrailingSlash(preferredUrl);

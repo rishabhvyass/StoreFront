@@ -1,7 +1,6 @@
 {
   "name": "testreact",
   "version": "0.1.0",
-  "homepage": "/StoreFront",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.13.0",

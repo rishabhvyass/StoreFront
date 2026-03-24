@@ -8,12 +8,15 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from functools import wraps
 from pathlib import Path
+from typing import Any
 from uuid import uuid4
 
 import jwt
 import requests as http_requests
 from flask import Flask, g, jsonify, request
 from flask_cors import CORS
+from psycopg import connect as postgres_connect
+from psycopg.rows import dict_row
 from werkzeug.security import check_password_hash, generate_password_hash
 
 try:
@@ -45,11 +48,15 @@ load_env_file(BASE_DIR / ".env")
 load_env_file(BASE_DIR.parent / ".env")
 
 DB_PATH = Path(os.getenv("DATABASE_PATH", BASE_DIR / "appareldesk.sqlite3"))
+DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+DATABASE_BACKEND = "postgres" if DATABASE_URL else "sqlite"
 JWT_SECRET = os.getenv("JWT_SECRET", "your-secret-key-change-in-production")
 JWT_EXP_DAYS = int(os.getenv("JWT_EXP_DAYS", "7"))
 PORT = int(os.getenv("PORT", "5001"))
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "").strip()
+BACKEND_URL = os.getenv("BACKEND_URL", "").strip()
 RAZORPAY_KEY_ID = os.getenv("RAZORPAY_KEY_ID", "")
 RAZORPAY_KEY_SECRET = os.getenv("RAZORPAY_KEY_SECRET", "")
 RAZORPAY_COMPANY_NAME = os.getenv("RAZORPAY_COMPANY_NAME", "ShopFront")
@@ -105,7 +112,28 @@ UNSPLASH_IMAGE_SETS = {
 }
 
 app = Flask(__name__)
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+def build_allowed_origins() -> list[str]:
+    configured_origins = [
+        origin.strip()
+        for origin in FRONTEND_URL.split(",")
+        if origin.strip()
+    ]
+    if configured_origins:
+        return configured_origins
+
+    return [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://localhost:3001",
+        "http://127.0.0.1:3001",
+        "https://rishabhvyass.github.io",
+        r"https://.*\.vercel\.app",
+    ]
+
+
+CORS(app, resources={r"/api/*": {"origins": build_allowed_origins()}})
 
 
 def now_iso() -> str:
@@ -254,7 +282,52 @@ def deserialize_value(field: str, value):
     return value
 
 
-def row_to_dict(row: sqlite3.Row | None) -> dict | None:
+class DatabaseAdapter:
+    def __init__(self, connection, dialect: str):
+        self.connection = connection
+        self.dialect = dialect
+
+    def _normalize_query(self, query: str, params=()) -> tuple[str, tuple[Any, ...]]:
+        normalized_params = tuple(params or ())
+        if self.dialect != "postgres" or "?" not in query:
+            return query, normalized_params
+
+        rebuilt_query = []
+        for segment in query.split("?")[:-1]:
+            rebuilt_query.append(segment)
+            rebuilt_query.append("%s")
+        rebuilt_query.append(query.split("?")[-1])
+        return "".join(rebuilt_query), normalized_params
+
+    def execute(self, query: str, params=()):
+        normalized_query, normalized_params = self._normalize_query(query, params)
+        if self.dialect == "postgres":
+            cursor = self.connection.cursor(row_factory=dict_row)
+            cursor.execute(normalized_query, normalized_params)
+            return cursor
+        return self.connection.execute(normalized_query, normalized_params)
+
+    def executescript(self, script: str):
+        if self.dialect == "postgres":
+            cursor = self.connection.cursor(row_factory=dict_row)
+            statements = [
+                statement.strip()
+                for statement in script.split(";")
+                if statement.strip()
+            ]
+            for statement in statements:
+                cursor.execute(statement)
+            return cursor
+        return self.connection.executescript(script)
+
+    def commit(self):
+        self.connection.commit()
+
+    def close(self):
+        self.connection.close()
+
+
+def row_to_dict(row: Any | None) -> dict | None:
     if row is None:
         return None
 
@@ -264,17 +337,41 @@ def row_to_dict(row: sqlite3.Row | None) -> dict | None:
     return record
 
 
-def get_db() -> sqlite3.Connection:
+def get_db() -> DatabaseAdapter:
     if "db" not in g:
-        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-        connection = sqlite3.connect(DB_PATH)
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA foreign_keys = ON")
-        g.db = connection
+        if DATABASE_BACKEND == "postgres":
+            connection = postgres_connect(DATABASE_URL)
+            g.db = DatabaseAdapter(connection, "postgres")
+        else:
+            DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+            connection = sqlite3.connect(DB_PATH)
+            connection.row_factory = sqlite3.Row
+            connection.execute("PRAGMA foreign_keys = ON")
+            g.db = DatabaseAdapter(connection, "sqlite")
     return g.db
 
 
 def ensure_column_exists(table_name: str, column_name: str, column_definition: str):
+    if DATABASE_BACKEND == "postgres":
+        existing_column = fetch_one(
+            """
+            SELECT column_name AS name
+            FROM information_schema.columns
+            WHERE table_schema = 'public'
+              AND table_name = ?
+              AND column_name = ?
+            """,
+            (table_name, column_name),
+        )
+        if existing_column:
+            return
+
+        get_db().execute(
+            f"ALTER TABLE {table_name} ADD COLUMN IF NOT EXISTS {column_name} {column_definition}"
+        )
+        get_db().commit()
+        return
+
     existing_columns = {
         row["name"]
         for row in get_db().execute(f"PRAGMA table_info({table_name})").fetchall()
